@@ -1,0 +1,104 @@
+<html>
+<html>
+<head>
+    <title>BukuKita! - Semua dalam Satu File</title>
+    <style>
+        /* Gaya CSS Sederhana */
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4ffec; }
+        h1 { color: #007bff; text-align: center; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
+        .nav-links { text-align: center; margin-bottom: 30px; }
+        .nav-links a { text-decoration: none; color: #28a745; padding: 10px 15px; margin: 0 5px; border: 1px solid #28a745; border-radius: 5px; display: inline-block; }
+        .nav-links a:hover { background-color: #28a745; color: white; }
+        fieldset { border: 1px solid #aaa; padding: 20px; margin-top: 20px; background-color: white; }
+        section { padding: 40px 0; border-top: 1px solid #eee; margin-top: 30px; }
+        input[type="text"], input[type="email"], select, textarea { width: 100%; padding: 10px; margin: 5px 0 15px 0; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        input[type="submit"] { background-color: #007bff; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1 id="top">SELAMAT Datang di BukuKita!</h1>
+    
+    <img src="./img/BUKU KITA.png" alt="Logo BukuKita" height="display: block; margin: 0 auto;" width="150">
+    <h2>Toko Buku Online Terlengkap</h2>
+
+    <div class="nav-links">
+        <a href="#halaman_beranda">Beranda</a> <a href="#halaman_katalog">Katalog</a> <a href="#halaman_promo">Promo Spesial</a> <a href="#tentang">Tentang Kami</a> 
+        <a href="#kontak">Hubungi Kami</a> 
+    </div>
+    <hr>
+
+    <section id="tentang">
+        <h2>Tentang Kami</h2>
+        <p>BukuKita adalah toko buku online terpercaya yang didirikan sejak tahun 2020. Misi kami adalah menyediakan akses mudah ke berbagai jenis buku berkualitas dan menyebarkan literasi ke seluruh penjuru Indonesia.</p>
+        <p>Kami percaya bahwa buku adalah jendela dunia, dan kami berkomitmen penuh pada kepuasan pelanggan.</p>
+    </section>
+
+    <section id="kontak">
+        <h2>Formulir Kontak</h2>
+
+        <form action="proses_kirim.php" method="POST">
+            <fieldset>
+                <legend>Informasi Pelanggan (Form)</legend>
+
+                <label for="nama_lengkap">Nama Lengkap:</label>
+                <input type="text" id="nama_lengkap" name="nama_lengkap" placeholder="Masukkan nama Anda..." required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="contoh@email.com" required>
+
+                <label for="topik_pesan">Topik Pesan (Dropdown):</label>
+                <select id="topik_pesan" name="topik_pesan">
+                    <option value="umum">Pertanyaan Umum</option>
+                    <option value="pemesanan">Pertanyaan Pemesanan</option>
+                    <option value="kerja_sama">Kerja Sama</option>
+                    <option value="lainnya">Lainnya</option>
+                </select>
+
+                <p>Bagaimana Anda Mengetahui Kami? (Radio Button)</p>
+                <label><input type="radio" name="sumber" value="medsos" required> Media Sosial</label>
+                <label><input type="radio" name="sumber" value="search"> Mesin Pencari</label>
+                <label><input type="radio" name="sumber" value="rekomendasi"> Rekomendasi Teman</label>
+                <br><br>
+
+                <label for="pesan_anda">Tulis Pesan Anda (Textarea):</label>
+                <textarea id="pesan_anda" name="pesan_anda" placeholder="Tuliskan pesan Anda di sini..."></textarea>
+                
+                <p>
+                    <label>
+                        <input type="checkbox" id="syarat_ketentuan" name="syarat_ketentuan" value="setuju" required>
+                        Saya setuju dengan Syarat & Ketentuan. (Checkbox)
+                    </label>
+                </p>
+
+                <input type="submit" value="Kirim Pesan">
+            </fieldset>
+        </form>
+    </section>
+
+    <hr>
+    
+    <section id="halaman_beranda" style="background-color: #eaf6ff;">
+        <h2>[Beranda] Selamat Datang Kembali!</h2>
+        <p>Ini adalah halaman utama, menampilkan berita terbaru dan buku terlaris bulan ini. Semua yang Anda cari ada di sini.</p>
+        <p><a href="#top">Kembali ke Navigasi Atas</a></p>
+    </section>
+    
+    <section id="halaman_katalog" style="background-color: #fff9e6;">
+        <h2>[Katalog] Daftar Buku</h2>
+        <p>Jelajahi ribuan judul buku dari berbagai kategori: Fiksi, Non-Fiksi, Sejarah, Sains, dan Komik. Gunakan fitur pencarian untuk menemukan buku favorit Anda.</p>
+        <p><a href="#top">Kembali ke Navigasi Atas</a></p>
+    </section>
+
+    <section id="halaman_promo" style="background-color: #ffe6e6;">
+        <h2>[Promo] Diskon Spesial!</h2>
+        <p>Jangan lewatkan Diskon 20% untuk semua buku terbitan tahun 2024. Penawaran berakhir minggu ini!</p>
+        <p><a href="#top">Kembali ke Navigasi Atas</a></p>
+    </section>
+    
+    <hr>
+    
+    <p style="text-align: center; font-size: 0.8em;">Dokumen HTML Studi Kasus Terpadu.</p>
+
+</body>
+</html>
