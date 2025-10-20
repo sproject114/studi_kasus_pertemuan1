@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSS untuk memanipulasi font</title>
+    <style type="text/css">
+        /* Element Type Selector (Selector Bebas): div */
+        div {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12px;
+            font-style: italic; /* Semua tag <div> akan miring */
+        }
+
+        /* Class Selector: .cetak_tebal */
+        .cetak_tebal {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+            color: skyblue; /* Tag dengan class="cetak_tebal" akan tebal, biru muda */
+        }
+
+        /* ID Selector: #14pt */
+        #14pt {
+            font-size: 14pt; /* Tag dengan id="14pt" akan berukuran 14pt */
+        }
+    </style>
+</head>
+<body>
+    
+    <h3>Sejarah UKRI</h3>
+
+    <table>
+        <tr>
+            <td>
+                <div class="tulisan_miring"> 
+                    Universitas Kebangsaan Republik Indonesia,
+                    selanjutnya disebut UKRI merupakan salah satu
+                    perguruan tinggi swasta yang berkedudukan di Provinsi Jawa Barat
+                    Kota Bandung di bawah naungan Yayasan Pendidikan Kebangsaan
+                    <br>&nbsp;
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="cetak_tebal">
+                UKRI memiliki Program Studi Sistem Informasi & Teknik Informatika. Program studi ini
+                masing-masing dikelola oleh seorang Ketua Jurusan dan Sekretaris Jurusan yang didukung
+                oleh Perangkat Dosen, dan Staff Administrasi.<br>
+            </td>
+        </tr>
+        <tr>
+            <td id="14pt">
+                UKRI berawal dari Institut Teknologi Adityawarman (ITA) yang didirikan pada 15 Agustus 1985.
+                ITA kemudian berubah menjadi Universitas Kebangsaan (UK) pada 2002 dan berganti nama menjadi
+                Universitas Kebangsaan Republik Indonesia (UKRI) pada Juni 2021 untuk lebih menekankan identitas kebangsaannya.
+                Perubahan ini menandai perluasan cakupan ilmu dari hanya bidang teknologi menjadi bidang ekonomi,
+                sosial, dan humaniora, di bawah naungan Yayasan Pendidikan Kebangsaan Republik Indonesia.
+            </td>
+        </tr>
+    </table>
+    
+</body>
+</html>
