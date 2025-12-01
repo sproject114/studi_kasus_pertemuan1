@@ -1,59 +1,55 @@
 <?php
 include 'koneksi.php';
 
-// Mendapatkan data dari formulir (POST)
-$id             = $_POST['id']; // ID baris yang akan diubah
-$npm            = $_POST['npm'];
-$nama_mahasiswa = $_POST['nama_mahasiswa'];
-$kelas          = $_POST['kelas'];
-$status         = $_POST['status'];
-$bukti_foto     = $_FILES['bukti_foto']['name']; // Nama file bukti foto
+$id          = $_POST['id'];
+$nama_produk = $_POST['nama_produk'];
+$harga       = $_POST['harga'];
+$gambar      = $_FILES['gambar_produk']['name'];
 
-// KONDISI 1: Jika user mengganti bukti foto
-if($bukti_foto != "") {
+// KONDISI 1: Jika user mengganti gambar
+if($gambar != "") {
     $ekstensi_diperbolehkan = array('png','jpg','jpeg');
-    $x = explode('.', $bukti_foto);
+    $x = explode('.', $gambar);
     $ekstensi = strtolower(end($x));
-    $file_tmp = $_FILES['bukti_foto']['tmp_name'];
+    $file_tmp = $_FILES['gambar_produk']['tmp_name'];
     $angka_acak = rand(1,999);
-    $nama_bukti_baru = $angka_acak.'-'.$bukti_foto; 
+    $nama_gambar_baru = $angka_acak.'-'.$gambar; 
 
-    if(in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
+    if(in_array($ekstensi, $ekstensi_diperbolehkan) === true)  {
+        move_uploaded_file($file_tmp, 'gambar/'.$nama_gambar_baru);
         
-        // Pindahkan file baru
-        move_uploaded_file($file_tmp, 'gambar/'.$nama_bukti_baru);
+        // Query Update dengan gambar
+        $query = "UPDATE produk SET nama_produk = ?, harga = ?, gambar = ? WHERE id = ?";
+$stmt = $koneksi->prepare($query);
         
-        // Query Update DENGAN bukti foto
-        // Update 5 kolom: npm, nama, kelas, status, dan bukti_foto
-        $query = "UPDATE absensi SET npm = ?, nama_mahasiswa = ?, kelas = ?, status = ?, bukti_foto = ? WHERE id = ?";
-        $stmt = $koneksi->prepare($query);
-        
-        // "sssssi" = String, String, String, String, String (bukti_foto), Integer (id)
-        $stmt->bind_param("sssssi", $npm, $nama_mahasiswa, $kelas, $status, $nama_bukti_baru, $id);
+        // "sisi" = String (nama), Integer (harga), String (file), Integer (id)
+        $stmt->bind_param("sisi", $nama_produk, $harga, $nama_gambar_baru, $id);
         
         if($stmt->execute()){
-            echo "<script>alert('Data absensi berhasil diubah.');window.location='index.php';</script>";
+            echo "<script>alert('Data berhasil diubah.');window.location='index.php';</script>";
         } else {
             die ("Gagal update: " . $stmt->error);
         }
-    } else {    
-        echo "<script>alert('Ekstensi foto salah.');window.location='index.php';</script>";
+    } else {     
+        echo "<script>alert('Ekstensi salah.');window.location='index.php';</script>";
     }
 } 
+// KONDISI 2: Jika user TIDAK mengganti gambar
 else {
-
-    $query = "UPDATE absensi SET npm = ?, nama_mahasiswa = ?, kelas = ?, status = ? WHERE id = ?";
+    // Query Update TANPA gambar
+    $query = "UPDATE produk SET nama_produk = ?, harga = ? WHERE id = ?";
     $stmt = $koneksi->prepare($query);
     
-    $stmt->bind_param("ssssi", $npm, $nama_mahasiswa, $kelas, $status, $id);
+    // "sii" = String (nama), Integer (harga), Integer (id)
+    $stmt->bind_param("sii", $nama_produk, $harga, $id);
     
     if($stmt->execute()){
-        echo "<script>alert('Data absensi berhasil diubah.');window.location='index.php';</script>";
+        echo "<script>alert('Data berhasil diubah.');window.location='index.php';</script>";
     } else {
         die ("Gagal update: " . $stmt->error);
     }
 }
 
+// Jangan lupa tutup statement
 if(isset($stmt)) $stmt->close();
-
 ?>

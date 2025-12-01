@@ -1,54 +1,43 @@
 <?php
 include 'koneksi.php';
 
-if (mysqli_connect_errno()) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
+$nama_produk = $_POST['nama_produk'];
+$harga       = $_POST['harga'];
+$gambar      = $_FILES['gambar_produk']['name'];
 
-$npm            = $_POST['npm'];
-$nama_mahasiswa = $_POST['nama_mahasiswa'];
-$kelas          = $_POST['kelas'];
-$status         = $_POST['status'];
-$bukti_foto     = $_FILES['bukti_foto']['name'];
-
-if (empty($bukti_foto)) {
-
-
+if($gambar != "") {
     $ekstensi_diperbolehkan = array('png','jpg','jpeg');
-    $x = explode('.', $bukti_foto);
+    $x = explode('.', $gambar);
     $ekstensi = strtolower(end($x));
-    $file_tmp = $_FILES['bukti_foto']['tmp_name'];
+    $file_tmp = $_FILES['gambar_produk']['tmp_name'];
     $angka_acak = rand(1,999);
-    $nama_bukti_baru = $angka_acak.'-'.$bukti_foto;
+    $nama_gambar_baru = $angka_acak.'-'.$gambar;
 
-    if (in_array($ekstensi, $ekstensi_diperbolehkan) === true) {
-
-        if (!move_uploaded_file($file_tmp, 'bukti_foto/'.$nama_bukti_baru)) {
-            echo "<script>alert('Gagal memindahkan file.');window.location='tambah.php';</script>";
-            exit;
-        }
-
-        $query = "INSERT INTO absensi (npm, nama_mahasiswa, kelas, status, bukti_foto) VALUES (?, ?, ?, ?, ?)";
+    if(in_array($ekstensi, $ekstensi_diperbolehkan) === true)  {     
+        move_uploaded_file($file_tmp, 'gambar/'.$nama_gambar_baru);
+        
+        // --- BAGIAN SECURE CODING (BIND PARAM) ---
+        
+        // 1. Siapkan query dengan tanda tanya (?)
+        $query = "INSERT INTO produk (nama_produk, harga, gambar) VALUES (?, ?, ?)";
+// 2. Prepare statement
         $stmt = $koneksi->prepare($query);
-
-        if ($stmt === false) {
-            die("Prepare statement gagal: " . $koneksi->error);
-        }
-
-        $stmt->bind_param("sssss", $npm, $nama_mahasiswa, $kelas, $status, $nama_bukti_baru);
-
-        if ($stmt->execute()) {
-            echo "<script>alert('Data absensi berhasil ditambah.');window.location='index.php';</script>";
+        
+        // 3. Bind parameter
+        // "sis" artinya: String (nama), Integer (harga), String (gambar)
+        $stmt->bind_param("sis", $nama_produk, $harga, $nama_gambar_baru);
+        
+        // 4. Eksekusi
+        if($stmt->execute()){
+            echo "<script>alert('Data berhasil ditambah.');window.location='index.php';</script>";
         } else {
-            die("Eksekusi query gagal: " . $stmt->error);
+            die ("Query gagal dijalankan: " . $stmt->error);
         }
-
+        
+        // 5. Tutup statement
         $stmt->close();
-
-    } else {
-        echo "<script>alert('Ekstensi bukti foto harus png, jpg, atau jpeg.');window.location='tambah.php';</script>";
+        
+    } else {     
+        echo "<script>alert('Ekstensi gambar salah.');window.location='tambah.php';</script>";
     }
-} else {
-    echo "<script>alert('Bukti foto wajib diisi.');window.location='tambah.php';</script>";
 }
-?>

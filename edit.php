@@ -4,8 +4,7 @@ include 'koneksi.php';
 // Validasi: Cek apakah ada ID di URL
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    
-    // --- QUERY AMAN (SECURE) ---
+// --- QUERY AMAN (SECURE) ---
     // Kita mengambil data spesifik berdasarkan ID
     $query = "SELECT * FROM produk WHERE id = ?";
     
@@ -16,11 +15,13 @@ if (isset($_GET['id'])) {
     $result = $stmt->get_result();
     $data = $result->fetch_assoc();
     
+    // Jika ID diketik ngawur di URL dan data tidak ditemukan
     if (!$data) {
         echo "<script>alert('Produk tidak ditemukan!');window.location='index.php';</script>";
         exit();
     }
 } else {
+    // Jika user membuka detail.php tanpa membawa ID
     echo "<script>alert('Silakan pilih produk terlebih dahulu.');window.location='index.php';</script>";
     exit();
 }
@@ -31,6 +32,7 @@ if (isset($_GET['id'])) {
 <head>
     <title>Detail Produk - <?php echo $data['nama_produk']; ?></title>
     <style>
+        /* CSS Sederhana untuk Tampilan Card */
         body { font-family: sans-serif; background-color: #f4f4f4; padding: 20px; }
         .container {
             background-color: white;
@@ -39,14 +41,15 @@ if (isset($_GET['id'])) {
             padding: 20px;
             box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
             border-radius: 5px;
-            overflow: hidden; 
+            overflow: hidden; /* Clear float */
         }
         .gambar-produk {
             float: left;
             width: 40%;
             text-align: center;
         }
-.gambar-produk img {
+
+        .gambar-produk img {
             max-width: 100%;
             border-radius: 5px;
         }
@@ -89,6 +92,7 @@ if (isset($_GET['id'])) {
             <p><strong>ID Produk:</strong> <?php echo $data['id']; ?></p>
             
             <p><strong>Deskripsi:</strong><br>
+
             Ini adalah halaman detail untuk produk <?php echo $data['nama_produk']; ?>. 
             Di halaman ini Anda bisa menampilkan informasi yang lebih lengkap seperti spesifikasi, stok, dan ulasan.
             </p>
@@ -99,3 +103,5 @@ if (isset($_GET['id'])) {
 
 </body>
 </html>
+
+
