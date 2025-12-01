@@ -1,0 +1,12 @@
+dadang	20251320033	ukri	usaha pemancingan	F&B (Makanan & Minuman)	kokoko
+rahmat,	089090909	ukri	KENARI	Kreatif	KOKO
+
+widi	00009	ukri	KENARI	F&B (Makanan & Minuman)	lolo
+
+arif	1234321	ukri	KENARI	F&B (Makanan & Minuman)	1qweeerr
+adi	080909	ukri	jla	F&B (Makanan & Minuman)	dadada
+dadang	20251320033	ukri	jla	F&B (Makanan & Minuman)	dadada
+budi	20251320023	ukri	pergalonan	F&B (Makanan & Minuman)	inggin mengembangkan ide bisni depot air mineral 
+RIDHO GUSTAMA SPD.MT.SI	20241320027	Universitas Kebangsaan	Jasa Pengembangan web	Jasa Digital	jasa untuk membuat web memakai php front end maupun back end dan juga data analis
+
+ada	20241320015	Universitas Kebangsaan	Judi	Jasa Digital	judi
