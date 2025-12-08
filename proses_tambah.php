@@ -1,43 +1,42 @@
 <?php
 include 'koneksi.php';
 
-$nama_produk = $_POST['nama_produk'];
-$harga       = $_POST['harga'];
-$gambar      = $_FILES['gambar_produk']['name'];
+$nama_mahasiswa  = $_POST['nama_mahasiswa'];
+$npm             = $_POST['npm'];
+$kelas           = $_POST['kelas'];
+$status_kehadiran = $_POST['status_kehadiran'];
+$bukti_foto      = $_FILES['bukti_foto']['name'];
 
-if($gambar != "") {
+if($bukti_foto != "") {
     $ekstensi_diperbolehkan = array('png','jpg','jpeg');
-    $x = explode('.', $gambar);
+    $x = explode('.', $bukti_foto);
     $ekstensi = strtolower(end($x));
-    $file_tmp = $_FILES['gambar_produk']['tmp_name'];
+    $file_tmp = $_FILES['bukti_foto']['tmp_name'];
     $angka_acak = rand(1,999);
-    $nama_gambar_baru = $angka_acak.'-'.$gambar;
+    $nama_bukti_foto_baru = $npm . '_' . $angka_acak . '.' . $ekstensi;
 
-    if(in_array($ekstensi, $ekstensi_diperbolehkan) === true)  {     
-        move_uploaded_file($file_tmp, 'gambar/'.$nama_gambar_baru);
+    if(in_array($ekstensi, $ekstensi_diperbolehkan) === true) { 
+        move_uploaded_file($file_tmp, 'gambar/'.$nama_bukti_foto_baru);
+        $query = "INSERT INTO absensi_ukri 
+                    (nama_mahasiswa, npm, kelas, status_kehadiran, bukti_foto) 
+                  VALUES (?, ?, ?, ?, ?)";
         
-        // --- BAGIAN SECURE CODING (BIND PARAM) ---
-        
-        // 1. Siapkan query dengan tanda tanya (?)
-        $query = "INSERT INTO produk (nama_produk, harga, gambar) VALUES (?, ?, ?)";
-// 2. Prepare statement
         $stmt = $koneksi->prepare($query);
         
-        // 3. Bind parameter
-        // "sis" artinya: String (nama), Integer (harga), String (gambar)
-        $stmt->bind_param("sis", $nama_produk, $harga, $nama_gambar_baru);
+        $stmt->bind_param("sssss", $nama_mahasiswa, $npm, $kelas, $status_kehadiran, $nama_bukti_foto_baru);
         
-        // 4. Eksekusi
         if($stmt->execute()){
-            echo "<script>alert('Data berhasil ditambah.');window.location='index.php';</script>";
+            echo "<script>alert('Data absensi mahasiswa berhasil ditambah.');window.location='index.php';</script>";
         } else {
             die ("Query gagal dijalankan: " . $stmt->error);
         }
         
-        // 5. Tutup statement
         $stmt->close();
         
-    } else {     
-        echo "<script>alert('Ekstensi gambar salah.');window.location='tambah.php';</script>";
+    } else { 
+        echo "<script>alert('Ekstensi bukti foto yang diunggah tidak diperbolehkan (gunakan: jpg, jpeg, atau png).');window.location='tambah.php';</script>";
     }
+} else {
+    echo "<script>alert('Bukti foto harus diisi.');window.location='tambah.php';</script>";
 }
+?>

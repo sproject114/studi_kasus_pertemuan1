@@ -4,36 +4,30 @@
     <title>Tambah Data Absensi</title>
 </head>
 <body>
-    <h1>Tambah Absensi Mahasiswa</h1>
+    <h1>Tambah Data Absensi Mahasiswa</h1>
     <form method="POST" action="proses_tambah.php" enctype="multipart/form-data">
         
-        <label for="npm">NPM</label><br>
-        <input type="text" id="npm" name="npm" required><br><br>
+        <label>Nama Mahasiswa</label><br>
+        <input type="text" name="nama_mahasiswa" required><br><br>
         
-        <label for="nama_mahasiswa">Nama Mahasiswa</label><br>
-        <input type="text" id="nama_mahasiswa" name="nama_mahasiswa" required><br><br>
+        <label>NPM</label><br>
+        <input type="text" name="npm" required><br><br>
+        
+        <label>Kelas</label><br>
+        <input type="text" name="kelas" required><br><br>
 
-        <label for="kelas">Kelas</label><br>
-        <input type="text" id="kelas" name="kelas" required><br><br>
-
-        <label>Status</label><br>
-        <div>
-            <label>
-                <input type="radio" name="status" value="Hadir" required> Hadir
-            </label><br>
-            <label>
-                <input type="radio" name="status" value="Sakit"> Sakit
-            </label><br>
-            <label>
-                <input type="radio" name="status" value="Izin"> Izin
-            </label>
-        </div>
-        <br>
+        <label>Status Kehadiran</label><br>
+        <select name="status_kehadiran" required>
+            <option value="Hadir">Hadir</option>
+            <option value="Sakit">Sakit</option>
+            <option value="Izin">Izin</option>
+        </select><br><br>
         
-        <label for="bukti_foto">Bukti Foto</label><br>
-        <input type="file" id="bukti_foto" name="bukti_foto" required><br><br>
+        <label>Bukti Foto (Selfie Kehadiran / Surat Sakit/Izin)</label><br>
+        <input type="file" name="bukti_foto" required><br><br>
         
-        <button type="submit">Simpan Absensi</button>
+        <button type="submit">Simpan Data Absensi</button>
+        <a href="index.php">Batal</a>
     </form>
 </body>
 </html>
